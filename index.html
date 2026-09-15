@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simu — Support</title>
+<style>
+  :root { color-scheme: light dark; --ink: #17181a; --dim: #6b6f76; --bg: #fbfaf8; --line: #e3e0da; --accent: #c4601a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #ecebe8; --dim: #9a9ea6; --bg: #131416; --line: #2c2e33; --accent: #e8913f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; padding: 3.5rem 1.4rem 5rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .2rem; letter-spacing: -.01em; }
+  .tagline { color: var(--dim); margin: 0 0 2.6rem; }
+  h2 { font-size: 1.02rem; margin: 2.4rem 0 .6rem; }
+  p, li { color: var(--ink); }
+  ul { padding-left: 1.1rem; }
+  li { margin: .3rem 0; }
+  code { background: color-mix(in srgb, var(--ink) 8%, transparent); padding: .1rem .35rem;
+         border-radius: 4px; font-size: .88em; }
+  a { color: var(--accent); }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 2.6rem 0; }
+  footer { color: var(--dim); font-size: .85rem; }
+  .note { color: var(--dim); font-size: .92rem; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Simu</h1>
+<p class="tagline">Film recipes, read from a screenshot and written into the camera.</p>
+
+<h2>Contact</h2>
+<p>Email <a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a>. One person answers it, usually within a couple of days.</p>
+<p class="note">A screenshot Simu read badly is the single most useful thing to send. The recipes people post are written in wording no dictionary covers completely, and every screenshot that arrives becomes a test case.</p>
+
+<hr>
+
+<h2>Setting up the camera</h2>
+<p>Two settings, both in the camera's own menus, and both have to be right before the cable does anything:</p>
+<ul>
+  <li><code>CONNECTION MODE</code> → <code>USB RAW CONV./BACKUP RESTORE</code></li>
+  <li><code>USB POWER SUPPLY/COMM SETTING</code> → <code>POWER SUPPLY OFF/COMM ON</code></li>
+</ul>
+<p>The cable has to carry data. Charge-only USB-C cables are common and look identical.</p>
+
+<h2>Cameras</h2>
+<p>Writing is verified on hardware on the X100VI.</p>
+<p>These fifteen bodies are supported, the rest from the camera's own firmware tables rather than from testing, and Simu says so before it writes: X100VI, X100V, X-T5, X-T50, X-T4, X-T3, X-T30, X-T30 II, X-E5, X-E4, X-M5, X-H2, X-H2S, X-S20, X-S10.</p>
+<p>Every slot is copied before it is overwritten, on every camera. A write that goes wrong can be put back from inside the app.</p>
+<p class="note">Reports from a body other than the X100VI are welcome either way — the ones that work are as useful to hear about as the ones that do not.</p>
+
+<h2>What costs money</h2>
+<p>Reading screenshots, organising recipes into kits and the settings reference are free. Writing to the camera is a one-time purchase, restorable on any device signed into the same Apple ID.</p>
+
+<h2>Restoring a purchase</h2>
+<p>Tap a write control, then <em>Restore Purchase</em> on the screen that appears. The purchase belongs to the Apple ID it was made with; a different Apple ID is a different purchase.</p>
+
+<h2>Privacy</h2>
+<p>Nothing is collected and nothing is transmitted. The full statement is on the <a href="privacy.html">privacy page</a>.</p>
+
+<hr>
+
+<footer>
+<p>FUJIFILM, X100VI and the film simulation names are trademarks of FUJIFILM Corporation. Simu is an independent app and is not affiliated with, authorised, or endorsed by FUJIFILM Corporation.</p>
+</footer>
+
+</main>
+</body>
+</html>
