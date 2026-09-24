@@ -11,8 +11,16 @@
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
-  main { max-width: 34rem; margin: 0 auto; padding: 3.5rem 1.4rem 5rem; }
+         font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+               "PingFang TC", "PingFang SC", "Hiragino Sans", "Noto Sans CJK", sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; padding: 2.4rem 1.4rem 5rem; }
+  nav.langs { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 2.2rem; }
+  nav.langs a { padding: .2rem .7rem; border: 1px solid var(--line); border-radius: 999px;
+                color: var(--dim); text-decoration: none; font-size: .9rem; }
+  nav.langs a[aria-current="true"] { color: var(--ink); border-color: var(--accent); }
+  article + article { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .js article[hidden] { display: none; }
+  .js article + article { margin-top: 0; padding-top: 0; border-top: 0; }
   h1 { font-size: 1.6rem; margin: 0 0 .2rem; letter-spacing: -.01em; }
   .tagline { color: var(--dim); margin: 0 0 2.6rem; }
   h2 { font-size: 1.02rem; margin: 2.4rem 0 .6rem; }
@@ -26,8 +34,16 @@
 <body>
 <main>
 
+<nav class="langs" aria-label="Language">
+  <a href="#en" lang="en">English</a>
+  <a href="#zh-Hant" lang="zh-Hant">繁體中文</a>
+  <a href="#zh-Hans" lang="zh-Hans">简体中文</a>
+  <a href="#ja" lang="ja">日本語</a>
+</nav>
+
+<article id="en" lang="en">
 <h1>Privacy Policy</h1>
-<p class="tagline">Simu · last updated 16 September 2026</p>
+<p class="tagline">Simu · last updated 24 September 2026</p>
 
 <h2>Nothing is collected</h2>
 <p>Simu collects no personal data, no usage data and no diagnostics. There is no account, no sign-in, and no analytics or crash-reporting service of any kind.</p>
@@ -37,11 +53,20 @@
 
 <h2>What stays on the device</h2>
 <ul>
-  <li><strong>Screenshots you import.</strong> Chosen through the iOS photo picker, which hands the app only the pictures selected and gives it no access to the rest of the library. They are read on the device; no image is uploaded anywhere.</li>
+  <li><strong>Screenshots and photographs you import.</strong> They arrive through the iOS photo picker, which hands the app only the pictures selected and gives it no access to the rest of the library; through the Share button in another app; by being dropped onto Simu; or from a Shortcut. They are read on the device; no image is uploaded anywhere.</li>
+  <li><strong>Pictures shared from another app.</strong> These wait in a folder only Simu can reach until Simu next opens, and are deleted as soon as they have been read.</li>
   <li><strong>Recipes, kits and camera backups.</strong> Files inside the app's own storage.</li>
-  <li><strong>Thumbnails.</strong> Cropped copies of the screenshots you imported, also local.</li>
+  <li><strong>Thumbnails.</strong> Cropped copies of the pictures you imported, also local.</li>
+  <li><strong>Spotlight.</strong> Each recipe's name, a short summary of its settings and its thumbnail are added to the iPhone's own search index, so a recipe can be found from the Home Screen. That index is kept by iOS on the device and is not sent anywhere.</li>
 </ul>
 <p>All of it is removed when the app is deleted.</p>
+
+<h2>Photographs taken on the camera</h2>
+<p>A photograph from a Fujifilm body records the recipe it was shot with inside the file. Simu reads those settings, on the device, and uses nothing else the file contains.</p>
+<p>The copy Simu keeps, so a recipe can be re-cropped later, is re-encoded from the picture alone. It carries no location, no camera serial number, no camera model and no photographer name, whatever the original held.</p>
+
+<h2>Sharing a recipe</h2>
+<p>A shared recipe is a short code holding its camera settings and its name, and nothing else. Sending it uses whatever app it is sent with. Simu opens no connection of its own, and no copy of a shared recipe reaches the developer.</p>
 
 <h2>The camera</h2>
 <p>Connecting a camera requires the iOS camera-access permission, which is what the system asks for before an app may talk to an attached device. Simu uses it only to read the camera's current custom slots and write recipes back into them. No photograph is read from the camera, and nothing is sent anywhere.</p>
@@ -57,6 +82,136 @@
 
 <h2>Contact</h2>
 <p><a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a></p>
+</article>
+
+<article id="zh-Hant" lang="zh-Hant">
+<h1>隱私權政策</h1>
+<p class="tagline">Simu · 最後更新：2026 年 9 月 24 日</p>
+
+<h2>不收集任何資料</h2>
+<p>Simu 不收集個人資料、使用資料或診斷資料。沒有帳號、不需登入，也沒有任何分析或當機回報服務。</p>
+
+<h2>不傳送任何資料</h2>
+<p>Simu 不含任何網路功能，不會連線到任何伺服器，包括開發者自己的。app 唯一的對外連線，是透過 USB 線連到相機。</p>
+
+<h2>留在裝置上的資料</h2>
+<ul>
+  <li><strong>你匯入的截圖和照片。</strong>來源可以是 iOS 的照片選擇器（只會交給 app 你選的那幾張，無法存取其他照片）、其他 app 的分享按鈕、拖放到 Simu，或是「捷徑」。圖片都在裝置上讀取，不會上傳到任何地方。</li>
+  <li><strong>從其他 app 分享進來的圖片。</strong>會先放在只有 Simu 能存取的資料夾，等 Simu 下次開啟讀取完畢後立刻刪除。</li>
+  <li><strong>配方、套組和相機備份。</strong>存放在 app 自己的儲存空間。</li>
+  <li><strong>縮圖。</strong>從你匯入的圖片裁切出來的副本，同樣只存在裝置上。</li>
+  <li><strong>Spotlight。</strong>每份配方的名稱、設定摘要和縮圖會加入 iPhone 本身的搜尋索引，讓你能從主畫面搜尋到配方。這份索引由 iOS 保存在裝置上，不會傳送到任何地方。</li>
+</ul>
+<p>刪除 app 時，以上資料會全部一起刪除。</p>
+
+<h2>相機拍的照片</h2>
+<p>Fujifilm 相機拍出的照片，檔案裡記錄著拍攝時使用的配方。Simu 只在裝置上讀取這些設定，不使用檔案裡的其他內容。</p>
+<p>Simu 為了之後能重新裁切而保留的副本，是只用畫面本身重新編碼的。不論原檔記錄了什麼，副本都不含拍攝地點、相機序號、相機型號或攝影者姓名。</p>
+
+<h2>分享配方</h2>
+<p>分享出去的配方是一段短代碼，只包含相機設定和配方名稱。傳送時使用的是你選擇的 app；Simu 本身不會建立任何連線，開發者也不會收到任何分享內容。</p>
+
+<h2>相機</h2>
+<p>連接相機需要 iOS 的相機存取權限，這是系統在 app 與外接裝置溝通之前要求的授權。Simu 只用它讀取相機目前的自訂設定、並把配方寫回去。不會從相機讀取任何照片，也不會傳送任何資料。</p>
+
+<h2>購買</h2>
+<p>寫入相機是一次性購買，完全由 Apple 處理。Simu 和開發者都看不到任何付款資訊，app 只會知道這項購買是否存在。</p>
+
+<h2>兒童</h2>
+<p>Simu 並非以兒童為對象，也不收集任何年齡層的任何資料。</p>
+
+<h2>政策變更</h2>
+<p>本政策如有變更，上方日期會一併更新。會收集資料的 Simu 就是另一個 app 了，若真有那一天，會先在這裡說明。</p>
+
+<h2>聯絡方式</h2>
+<p><a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a></p>
+</article>
+
+<article id="zh-Hans" lang="zh-Hans">
+<h1>隐私政策</h1>
+<p class="tagline">Simu · 最后更新：2026 年 9 月 24 日</p>
+
+<h2>不收集任何数据</h2>
+<p>Simu 不收集个人数据、使用数据或诊断数据。没有账号、不需登录，也没有任何分析或崩溃报告服务。</p>
+
+<h2>不传输任何数据</h2>
+<p>Simu 不含任何联网代码，不会连接任何服务器，包括开发者自己的。app 唯一的对外连接，是通过 USB 线连到相机。</p>
+
+<h2>留在设备上的数据</h2>
+<ul>
+  <li><strong>你导入的截图和照片。</strong>来源可以是 iOS 的照片选择器（只会交给 app 你选的那几张，无法访问其他照片）、其他 app 的分享按钮、拖放到 Simu，或"快捷指令"。图片都在设备上读取，不会上传到任何地方。</li>
+  <li><strong>从其他 app 分享进来的图片。</strong>会先放在只有 Simu 能访问的文件夹，等 Simu 下次打开读取完毕后立即删除。</li>
+  <li><strong>配方、套组和相机备份。</strong>存放在 app 自己的存储空间。</li>
+  <li><strong>缩略图。</strong>从你导入的图片裁切出来的副本，同样只存在设备上。</li>
+  <li><strong>聚焦搜索。</strong>每份配方的名称、设置摘要和缩略图会加入 iPhone 自身的搜索索引，让你能从主屏幕搜索到配方。这份索引由 iOS 保存在设备上，不会发送到任何地方。</li>
+</ul>
+<p>删除 app 时，以上数据会全部一起删除。</p>
+
+<h2>相机拍的照片</h2>
+<p>Fujifilm 相机拍出的照片，文件里记录着拍摄时使用的配方。Simu 只在设备上读取这些设置，不使用文件里的其他内容。</p>
+<p>Simu 为了之后能重新裁切而保留的副本，是只用画面本身重新编码的。不论原片记录了什么，副本都不含拍摄地点、相机序列号、相机型号或摄影者姓名。</p>
+
+<h2>分享配方</h2>
+<p>分享出去的配方是一段短代码，只包含相机设置和配方名称。发送时使用的是你选择的 app；Simu 本身不会建立任何连接，开发者也不会收到任何分享内容。</p>
+
+<h2>相机</h2>
+<p>连接相机需要 iOS 的相机访问权限，这是系统在 app 与外接设备通信之前要求的授权。Simu 只用它读取相机当前的自定义设置、并把配方写回去。不会从相机读取任何照片，也不会发送任何数据。</p>
+
+<h2>购买</h2>
+<p>写入相机是一次性购买，完全由 Apple 处理。Simu 和开发者都看不到任何付款信息，app 只会知道这项购买是否存在。</p>
+
+<h2>儿童</h2>
+<p>Simu 并非以儿童为对象，也不收集任何年龄段的任何数据。</p>
+
+<h2>政策变更</h2>
+<p>本政策如有变更，上方日期会一并更新。会收集数据的 Simu 就是另一个 app 了，若真有那一天，会先在这里说明。</p>
+
+<h2>联系方式</h2>
+<p><a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a></p>
+</article>
+
+<article id="ja" lang="ja">
+<h1>プライバシーポリシー</h1>
+<p class="tagline">Simu · 最終更新：2026年9月24日</p>
+
+<h2>何も収集しません</h2>
+<p>Simu は個人データ、利用データ、診断データを一切収集しません。アカウントもログインもなく、分析やクラッシュレポートのサービスも一切使用していません。</p>
+
+<h2>何も送信しません</h2>
+<p>Simu には通信を行うコードが含まれておらず、開発者のものを含め、どのサーバーにも接続しません。アプリが外部と接続するのは、USB ケーブルでつないだカメラだけです。</p>
+
+<h2>端末に残るもの</h2>
+<ul>
+  <li><strong>読み込んだスクリーンショットと写真。</strong>iOS の写真ピッカー（選んだ画像だけがアプリに渡され、ほかの写真にはアクセスできません）、ほかのアプリの共有ボタン、Simu へのドラッグ＆ドロップ、「ショートカット」から読み込みます。読み取りは端末内で行い、画像をどこかにアップロードすることはありません。</li>
+  <li><strong>ほかのアプリから共有された画像。</strong>Simu だけがアクセスできるフォルダで次に Simu を開くまで待機し、読み取りが終わるとすぐに削除されます。</li>
+  <li><strong>レシピ、キット、カメラのバックアップ。</strong>アプリ自身の保存領域にあるファイルです。</li>
+  <li><strong>サムネイル。</strong>読み込んだ画像から切り抜いたコピーで、これも端末内にのみ保存されます。</li>
+  <li><strong>Spotlight。</strong>各レシピの名前、設定の概要、サムネイルを iPhone 本体の検索インデックスに登録し、ホーム画面からレシピを検索できるようにします。このインデックスは iOS が端末内に保持し、どこにも送信されません。</li>
+</ul>
+<p>アプリを削除すると、これらはすべて削除されます。</p>
+
+<h2>カメラで撮った写真</h2>
+<p>Fujifilm のカメラで撮った写真には、撮影時のレシピがファイル内に記録されています。Simu はその設定を端末内で読み取るだけで、ファイルのほかの内容は使用しません。</p>
+<p>あとで切り抜き直せるように Simu が保存するコピーは、画像そのものから再エンコードしたものです。元のファイルに何が記録されていても、撮影場所、カメラのシリアル番号、機種名、撮影者名は含まれません。</p>
+
+<h2>レシピの共有</h2>
+<p>共有されるレシピは、カメラの設定とレシピ名だけを含む短いコードです。送信には、あなたが選んだアプリが使われます。Simu 自身は通信を行わず、共有されたレシピが開発者に届くこともありません。</p>
+
+<h2>カメラ</h2>
+<p>カメラとの接続には、iOS のカメラへのアクセス許可が必要です。これは、アプリが接続された機器とやり取りする前にシステムが求める許可です。Simu はこれを、カメラの現在のカスタム登録の読み取りと、レシピの書き込みにのみ使用します。カメラから写真を読み取ることはなく、何も送信しません。</p>
+
+<h2>購入</h2>
+<p>カメラへの書き込みは買い切りの購入で、すべて Apple が処理します。支払い情報を Simu や開発者が目にすることはなく、アプリが知るのは購入済みかどうかだけです。</p>
+
+<h2>お子様について</h2>
+<p>Simu はお子様を対象としたアプリではなく、年齢を問わず誰からも何も収集しません。</p>
+
+<h2>変更について</h2>
+<p>このポリシーを変更した場合は、上記の日付も更新します。何かを収集する Simu があるとすれば、それは別のアプリであり、その場合はまずここでお知らせします。</p>
+
+<h2>お問い合わせ</h2>
+<p><a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a></p>
+</article>
 
 <hr>
 
@@ -66,5 +221,37 @@
 </footer>
 
 </main>
+<script>
+  // One language at a time: the one in the address (#ja), else the reader's
+  // own, else English. Without JavaScript every language shows, one after
+  // another.
+  (function () {
+    var ids = ["en", "zh-Hant", "zh-Hans", "ja"];
+    function pick() {
+      var hash = location.hash.slice(1);
+      if (ids.indexOf(hash) >= 0) return hash;
+      var langs = navigator.languages || [navigator.language || "en"];
+      for (var i = 0; i < langs.length; i++) {
+        var l = langs[i].toLowerCase();
+        if (/^zh-(hant|tw|hk|mo)/.test(l)) return "zh-Hant";
+        if (l.indexOf("zh") === 0) return "zh-Hans";
+        if (l.indexOf("ja") === 0) return "ja";
+        if (l.indexOf("en") === 0) return "en";
+      }
+      return "en";
+    }
+    function show() {
+      var current = pick();
+      ids.forEach(function (id) { document.getElementById(id).hidden = id !== current; });
+      document.querySelectorAll("nav.langs a").forEach(function (a) {
+        a.setAttribute("aria-current", a.getAttribute("href") === "#" + current ? "true" : "false");
+      });
+      document.documentElement.lang = current;
+    }
+    document.documentElement.className = "js";
+    window.addEventListener("hashchange", function () { show(); window.scrollTo(0, 0); });
+    show();
+  })();
+</script>
 </body>
 </html>
