@@ -149,6 +149,9 @@ code that scans across a table and one that does not.</p>
 <h2>Links</h2>
 <pre><code>simu://r/&lt;code&gt;?n=&lt;recipe name&gt;
 simu://k/&lt;code&gt;?n=&lt;kit name&gt;&amp;r=&lt;slot 1 name&gt;&amp;r=&lt;slot 2 name&gt;…</code></pre>
+<p>The same code also opens in a browser, for people without the app. The code
+sits in the fragment, so it is read in the browser and never reaches a server:</p>
+<pre><code>https://hayamayama.github.io/Simu-Support/r.html#&lt;code&gt;&amp;n=&lt;recipe name&gt;</code></pre>
 <p>Names ride outside the payload. A Chinese or Japanese name inside the code
 would double its length and cost the QR its dense encoding, and a name is the
 one field where being readable is the point. For a kit there is one
