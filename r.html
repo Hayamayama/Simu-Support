@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Simu — Recipe</title>
+<style>
+  :root { color-scheme: light dark; --ink: #17181a; --dim: #6b6f76; --bg: #fbfaf8; --line: #e3e0da; --accent: #c4601a; --panel: #f3f1ec; --on-accent: #fff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #ecebe8; --dim: #9a9ea6; --bg: #131416; --line: #2c2e33; --accent: #e8913f; --panel: #1b1d20; --on-accent: #131416; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
+  main { max-width: 34rem; margin: 0 auto; padding: 2.2rem 1rem 5rem; }
+  a { color: var(--accent); }
+  code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  .brand { display: flex; align-items: center; gap: .55rem; margin: 0 0 1.6rem;
+           text-decoration: none; color: var(--ink); font-weight: 600; font-size: 1.05rem; }
+  .mark { width: 1.6rem; height: 1.6rem; border-radius: .38rem; flex: none;
+          background: linear-gradient(90deg,
+            #b83c2c 0 12.9%, #b4aea2 0 25.8%, #d98c58 0 38.7%, #efeae0 0 61.3%,
+            #c59a23 0 74.2%, #5f7266 0 87.1%, #41626b 0); }
+
+  nav.langs { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1.8rem; }
+  nav.langs button { font: inherit; font-size: .85rem; color: var(--dim); background: none; cursor: pointer;
+                     padding: .15rem .7rem; border: 1px solid var(--line); border-radius: 999px; }
+  nav.langs button[aria-current="true"] { color: var(--ink); border-color: var(--accent); }
+
+  h1 { font-size: 1.6rem; margin: 0 0 .15rem; letter-spacing: -.01em; overflow-wrap: anywhere; }
+  .sub { color: var(--dim); margin: 0 0 1.4rem; }
+  h2 { font-size: 1rem; margin: 2rem 0 .4rem; }
+
+  .code { display: flex; align-items: center; gap: .6rem; background: var(--panel); border: 1px solid var(--line);
+          border-radius: 10px; padding: .55rem .6rem .55rem .9rem; margin: 0 0 1.4rem; }
+  .code span { flex: 1; min-width: 0; overflow-wrap: anywhere; font-size: .88rem; }
+  button.small { font: inherit; font-size: .82rem; color: var(--ink); background: var(--bg); cursor: pointer;
+                 border: 1px solid var(--line); border-radius: 7px; padding: .25rem .65rem; flex: none; }
+
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  td { border-bottom: 1px solid var(--line); padding: .5rem 0; vertical-align: top; }
+  td:first-child { color: var(--dim); padding-right: 1rem; }
+  td:last-child { text-align: right; font-weight: 500; overflow-wrap: anywhere; }
+  tr:last-child td { border-bottom: 0; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 2rem 0 0; }
+  .button { display: inline-block; text-decoration: none; font-weight: 600; font-size: .95rem;
+            padding: .7rem 1.1rem; border-radius: 12px; border: 1px solid var(--line); color: var(--ink); }
+  .button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+
+  textarea { width: 100%; font: .95rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink);
+             background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+             padding: .7rem .8rem; min-height: 5.5rem; resize: vertical; }
+  .note { color: var(--dim); font-size: .9rem; }
+  .error { color: var(--accent); font-weight: 500; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 2.6rem 0 1.4rem; }
+  footer { color: var(--dim); font-size: .8rem; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+
+<a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span>Simu</a>
+
+<nav class="langs" aria-label="Language">
+  <button type="button" data-lang="en" lang="en">English</button>
+  <button type="button" data-lang="zh-Hant" lang="zh-Hant">繁體中文</button>
+  <button type="button" data-lang="zh-Hans" lang="zh-Hans">简体中文</button>
+  <button type="button" data-lang="ja" lang="ja">日本語</button>
+</nav>
+
+<section id="result" hidden>
+  <h1 id="title"></h1>
+  <p class="sub" id="subtitle"></p>
+  <div class="code"><span class="mono" id="code"></span><button type="button" class="small" id="copy"></button></div>
+  <div id="settings"></div>
+  <div class="actions">
+    <a class="button primary" id="open"></a>
+    <a class="button" id="store" href="https://apps.apple.com/app/id6811793155"></a>
+  </div>
+</section>
+
+<section id="entry">
+  <h1 id="entry-title"></h1>
+  <p class="error" id="error" hidden></p>
+  <textarea id="input" spellcheck="false" autocapitalize="characters" autocomplete="off" placeholder="SIMU1…"></textarea>
+  <p class="note" id="entry-note"></p>
+</section>
+
+<hr>
+
+<footer>
+  <p id="local"></p>
+  <p><a href="format.html" id="format-link"></a> · <a href="index.html" id="support-link"></a></p>
+  <p>FUJIFILM, X100VI and the film simulation names are trademarks of FUJIFILM Corporation. Simu is an independent app and is not affiliated with, authorised, or endorsed by FUJIFILM Corporation.</p>
+</footer>
+
+</main>
+<script>
+(function () {
+  "use strict";
+
+  // ---- The format, as format.html states it. Version 1. ----
+
+  var ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+  var VALUES = {};
+  for (var i = 0; i < ALPHABET.length; i++) VALUES[ALPHABET[i]] = i;
+  // What people type when they copy a code off a photograph.
+  VALUES.I = 1; VALUES.L = 1; VALUES.O = 0;
+
+  function list(values) { return { list: values, width: Math.max(1, Math.ceil(Math.log2(values.length))) }; }
+  function number(min, step, count) { return { min: min, step: step, count: count, width: Math.max(1, Math.ceil(Math.log2(count))) }; }
+
+  var TABLE = [
+    ["filmSimulation", list(["Provia", "Velvia", "Astia", "PRO Neg. Hi", "PRO Neg. Std",
+      "Monochrome", "Monochrome + Yellow", "Monochrome + Red", "Monochrome + Green", "Sepia", "Classic Chrome",
+      "Acros", "Acros + Yellow", "Acros + Red", "Acros + Green",
+      "Eterna", "Classic Neg.", "Eterna Bleach Bypass", "Nostalgic Neg.", "Reala Ace"])],
+    ["dynamicRangePriority", list(["Off", "Weak", "Strong", "Auto"])],
+    ["dynamicRange", list(["DR100", "DR200", "DR400", "DR Auto"])],
+    ["monochromeWarmCool", number(-18, 1, 37)],
+    ["monochromeMagentaGreen", number(-18, 1, 37)],
+    ["grain", list(["Off", "Weak / Small", "Strong / Small", "Weak / Large", "Strong / Large"])],
+    ["colorChrome", list(["Off", "Weak", "Strong"])],
+    ["colorChromeFXBlue", list(["Off", "Weak", "Strong"])],
+    ["smoothSkin", list(["Off", "Weak", "Strong"])],
+    ["whiteBalance", list(["Auto", "Daylight", "Incandescent", "Underwater",
+      "Fluorescent 1", "Fluorescent 2", "Fluorescent 3", "Shade", "Custom 1", "Custom 2", "Custom 3",
+      "Auto White Priority", "Auto Ambience Priority"])],
+    ["wbShiftRed", number(-9, 1, 19)],
+    ["wbShiftBlue", number(-9, 1, 19)],
+    ["highlight", number(-2, 0.5, 13)],
+    ["shadow", number(-2, 0.5, 13)],
+    ["color", number(-4, 1, 9)],
+    ["sharpness", number(-4, 1, 9)],
+    ["noiseReduction", number(-4, 1, 9)],
+    ["clarity", number(-5, 1, 11)]
+  ];
+  var KELVIN_MODE = 13, KELVIN_BITS = 11;
+
+  function firstCode(text) {
+    // The lookalikes belong in the class too: a code copied by hand off a
+    // photograph has to be found before it can be forgiven.
+    var match = /SIMU([0-9])([0-9ABCDEFGHJKMNPQRSTVWXYZILO]{8,})/i.exec(text);
+    return match ? { version: +match[1], body: match[2], text: match[0] } : null;
+  }
+
+  function base32(text) {
+    var bytes = [], buffer = 0, bits = 0;
+    text = text.toUpperCase();
+    for (var i = 0; i < text.length; i++) {
+      var value = VALUES[text[i]];
+      if (value === undefined) return null;
+      buffer = ((buffer << 5) | value) & 0xFFFF;
+      bits += 5;
+      if (bits >= 8) { bytes.push((buffer >> (bits - 8)) & 0xFF); bits -= 8; }
+    }
+    return bytes;
+  }
+
+  function crc8(bytes) {
+    var r = 0;
+    for (var i = 0; i < bytes.length; i++) {
+      r ^= bytes[i];
+      for (var b = 0; b < 8; b++) r = (r & 0x80 ? (r << 1) ^ 0x07 : r << 1) & 0xFF;
+    }
+    return r;
+  }
+
+  function Reader(bytes) { this.bytes = bytes; this.position = 0; }
+  Reader.prototype.read = function (bits) {
+    if (this.position + bits > this.bytes.length * 8) return null;
+    var value = 0;
+    for (var i = 0; i < bits; i++) {
+      var bit = (this.bytes[this.position >> 3] >> (7 - (this.position & 7))) & 1;
+      value = value * 2 + bit;
+      this.position++;
+    }
+    return value;
+  };
+
+  function signed(n) {
+    var text = Math.round(n) === n ? String(n) : n.toFixed(1);
+    return n > 0 ? "+" + text : text;
+  }
+
+  function record(reader) {
+    var mask = reader.read(TABLE.length);
+    if (mask === null) return null;
+    var fields = [];
+    for (var p = 0; p < TABLE.length; p++) {
+      if (!(mask & (1 << (TABLE.length - 1 - p)))) continue;
+      var key = TABLE[p][0], coding = TABLE[p][1];
+      var index = reader.read(coding.width);
+      if (index === null) return null;
+      var value = null;
+      if (coding.list) {
+        if (coding.list.length === KELVIN_MODE && index === KELVIN_MODE) {
+          var steps = reader.read(KELVIN_BITS);
+          if (steps === null) return null;
+          value = (2000 + steps * 10) + "K";
+        } else if (index < coding.list.length) {
+          value = coding.list[index];
+        }
+      } else if (index < coding.count) {
+        value = signed(coding.min + index * coding.step);
+      }
+      // A value this version has no name for is still a setting the sender
+      // named, so it is shown as unreadable rather than dropped.
+      fields.push({ key: key, value: value });
+    }
+    return fields;
+  }
+
+  function decode(text) {
+    var found = firstCode(text);
+    if (!found) return { error: "notFound" };
+    if (found.version > 1) return { error: "newerVersion" };
+    var bytes = base32(found.body);
+    if (!bytes || bytes.length < 3) return { error: "damaged" };
+    var body = bytes.slice(0, -1);
+    if (crc8(body) !== bytes[bytes.length - 1]) return { error: "damaged" };
+    var reader = new Reader(body);
+    var flags = reader.read(8);
+    var code = "SIMU" + found.version + found.body.toUpperCase().replace(/[IL]/g, "1").replace(/O/g, "0");
+    if (flags === 0) {
+      var fields = record(reader);
+      return fields ? { kind: "recipe", code: code, fields: fields } : { error: "damaged" };
+    }
+    if (flags === 1) {
+      var count = reader.read(3);
+      if (count === null) return { error: "damaged" };
+      var slots = [];
+      for (var s = 0; s <= count; s++) {
+        var slot = reader.read(3), entry = slot === null ? null : record(reader);
+        if (!entry) return { error: "damaged" };
+        slots.push({ slot: slot + 1, fields: entry });
+      }
+      return { kind: "kit", code: code, slots: slots };
+    }
+    return { error: "damaged" };
+  }
+
+  // ---- Words ----
+
+  var UI = {
+    en: {
+      recipe: "Simu recipe", kit: "Simu kit", copy: "Copy", copied: "Copied",
+      open: "Open in Simu", store: "Simu on the App Store",
+      entry: "Recipe code", note: "A whole message works too; the code is found inside it.",
+      notFound: "No recipe code was found in that text.",
+      newerVersion: "That code was made by a newer version of Simu.",
+      damaged: "That code is incomplete or was altered on the way.",
+      empty: "That code carries no settings.",
+      local: "The code is read in this browser. Nothing is sent anywhere.",
+      format: "Code format", support: "Support", unread: "—", slots: "%d slots"
+    },
+    "zh-Hant": {
+      recipe: "Simu 配方", kit: "Simu 套組", copy: "複製", copied: "已複製",
+      open: "在 Simu 中開啟", store: "App Store 上的 Simu",
+      entry: "配方代碼", note: "整段訊息一起貼上也可以，代碼會從裡面找出來。",
+      notFound: "那段文字裡沒有配方代碼。",
+      newerVersion: "這組代碼由更新版本的 Simu 產生。",
+      damaged: "這組代碼不完整，或在傳送途中被改動。",
+      empty: "這組代碼裡沒有任何設定。",
+      local: "代碼在這個瀏覽器裡讀取，不會傳送到任何地方。",
+      format: "代碼格式", support: "支援", unread: "—", slots: "%d 個插槽"
+    },
+    "zh-Hans": {
+      recipe: "Simu 配方", kit: "Simu 套组", copy: "复制", copied: "已复制",
+      open: "在 Simu 中打开", store: "App Store 上的 Simu",
+      entry: "配方代码", note: "整段消息一起粘贴也可以，代码会从里面找出来。",
+      notFound: "那段文字里没有配方代码。",
+      newerVersion: "该代码由更新版本的 Simu 生成。",
+      damaged: "该代码不完整或在传送途中被改动。",
+      empty: "该代码里没有任何设置。",
+      local: "代码在这个浏览器里读取，不会发送到任何地方。",
+      format: "代码格式", support: "支持", unread: "—", slots: "%d 个插槽"
+    },
+    ja: {
+      recipe: "Simu レシピ", kit: "Simu キット", copy: "コピー", copied: "コピーしました",
+      open: "Simu で開く", store: "App Store の Simu",
+      entry: "レシピコード", note: "メッセージ全体を貼り付けても構いません。その中からコードを探します。",
+      notFound: "そのテキストにレシピコードは見つかりませんでした。",
+      newerVersion: "そのコードは新しいバージョンの Simu で作られています。",
+      damaged: "そのコードは不完全か、途中で変わっています。",
+      empty: "そのコードには設定が入っていません。",
+      local: "コードはこのブラウザの中で読み取られ、どこにも送信されません。",
+      format: "コードの形式", support: "サポート", unread: "—", slots: "%d スロット"
+    }
+  };
+
+  // The app's own words for each setting, from its string catalog.
+  var LABELS = {
+    filmSimulation: ["Film Simulation", "軟片模擬", "胶片模拟", "フィルムシミュレーション"],
+    dynamicRangePriority: ["D Range Priority", "D 範圍優先", "D 范围优先", "Dレンジ優先"],
+    dynamicRange: ["Dynamic Range", "動態範圍", "动态范围", "ダイナミックレンジ"],
+    monochromeWarmCool: ["Monochrome Warm/Cool", "單色調 暖/冷", "单色调 暖/冷", "モノクロカラー（暖・寒）"],
+    monochromeMagentaGreen: ["Monochrome Magenta/Green", "單色調 洋紅/綠", "单色调 洋红/绿", "モノクロカラー（マゼンタ・グリーン）"],
+    grain: ["Grain Effect", "顆粒效果", "颗粒效果", "グレイン・エフェクト"],
+    colorChrome: ["Color Chrome Effect", "色彩效果", "色彩效果", "カラークローム・エフェクト"],
+    colorChromeFXBlue: ["Color Chrome FX Blue", "彩色FX藍色", "彩色FX蓝色", "カラークローム ブルー"],
+    smoothSkin: ["Smooth Skin Effect", "柔膚效果", "光滑皮肤效果", "スムーススキン・エフェクト"],
+    whiteBalance: ["White Balance", "白平衡", "白平衡", "ホワイトバランス"],
+    wbShiftRed: ["WB Shift Red", "白平衡偏移 紅", "白平衡偏移 红", "ホワイトバランスシフト 赤"],
+    wbShiftBlue: ["WB Shift Blue", "白平衡偏移 藍", "白平衡偏移 蓝", "ホワイトバランスシフト 青"],
+    highlight: ["Highlight", "高光", "高光", "ハイライト"],
+    shadow: ["Shadow", "陰影", "阴影", "シャドウ"],
+    color: ["Color", "色彩", "色彩", "カラー"],
+    sharpness: ["Sharpness", "銳利度", "锐度", "シャープネス"],
+    noiseReduction: ["High ISO NR", "高ISO降噪", "高ISO降噪", "高感度ノイズ低減"],
+    clarity: ["Clarity", "清晰度", "清晰度", "明瞭度"]
+  };
+
+  var WORDS = {
+    "Off": ["Off", "關", "关", "OFF"],
+    "Weak": ["Weak", "弱", "弱", "弱"],
+    "Strong": ["Strong", "強", "强", "強"],
+    "Small": ["Small", "小", "小", "小"],
+    "Large": ["Large", "大", "大", "大"],
+    "Auto": ["Auto", "自動", "自动", "オート"],
+    "Daylight": ["Daylight", "日光", "日光", "晴れ"],
+    "Incandescent": ["Incandescent", "白熾燈", "白炽灯", "電球"],
+    "Underwater": ["Underwater", "水中", "潜水", "水中"],
+    "Fluorescent 1": ["Fluorescent 1", "螢光燈1", "荧光灯1", "蛍光灯1"],
+    "Fluorescent 2": ["Fluorescent 2", "螢光燈2", "荧光灯2", "蛍光灯2"],
+    "Fluorescent 3": ["Fluorescent 3", "螢光燈3", "荧光灯3", "蛍光灯3"],
+    "Shade": ["Shade", "陰天", "阴天", "日陰"],
+    "Custom 1": ["Custom 1", "自訂1", "自定1", "カスタム1"],
+    "Custom 2": ["Custom 2", "自訂2", "自定2", "カスタム2"],
+    "Custom 3": ["Custom 3", "自訂3", "自定3", "カスタム3"],
+    "Auto White Priority": ["Auto White Priority", "自動 白色優先", "自动 白色优先", "AUTO ホワイト優先"],
+    "Auto Ambience Priority": ["Auto Ambience Priority", "自動 環境優先", "自动 环境优先", "AUTO 雰囲気優先"]
+  };
+
+  // As the camera's own menu prints them, which is the same in every language.
+  var FILMS = {
+    "Provia": "PROVIA/STANDARD", "Velvia": "Velvia/VIVID", "Astia": "ASTIA/SOFT",
+    "PRO Neg. Hi": "PRO Neg. Hi", "PRO Neg. Std": "PRO Neg. Std",
+    "Monochrome": "MONOCHROME", "Monochrome + Yellow": "MONOCHROME+Ye", "Monochrome + Red": "MONOCHROME+R",
+    "Monochrome + Green": "MONOCHROME+G", "Sepia": "SEPIA", "Classic Chrome": "CLASSIC CHROME",
+    "Acros": "ACROS", "Acros + Yellow": "ACROS+Ye", "Acros + Red": "ACROS+R", "Acros + Green": "ACROS+G",
+    "Eterna": "ETERNA/CINEMA", "Classic Neg.": "CLASSIC Neg.", "Eterna Bleach Bypass": "ETERNA BLEACH BYPASS",
+    "Nostalgic Neg.": "NOSTALGIC Neg.", "Reala Ace": "REALA ACE"
+  };
+
+  var LANGS = ["en", "zh-Hant", "zh-Hans", "ja"];
+  var lang = pickLanguage();
+
+  function pickLanguage() {
+    try { var saved = localStorage.getItem("simu-lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
+    var wanted = navigator.languages || [navigator.language || "en"];
+    for (var i = 0; i < wanted.length; i++) {
+      var l = String(wanted[i]).toLowerCase();
+      if (/^zh-(hant|tw|hk|mo)/.test(l)) return "zh-Hant";
+      if (l.indexOf("zh") === 0) return "zh-Hans";
+      if (l.indexOf("ja") === 0) return "ja";
+      if (l.indexOf("en") === 0) return "en";
+    }
+    return "en";
+  }
+
+  function t(key) { return UI[lang][key]; }
+  function column() { return LANGS.indexOf(lang); }
+  function label(key) { return LABELS[key][column()]; }
+
+  function show(key, value) {
+    if (value === null) return t("unread");
+    if (key === "filmSimulation") return FILMS[value] || value;
+    if (/^-/.test(value)) return "−" + value.slice(1);
+    return value.split(" / ").map(function (part) {
+      return WORDS[part] ? WORDS[part][column()] : part;
+    }).join(" / ");
+  }
+
+  // ---- Page ----
+
+  var $ = function (id) { return document.getElementById(id); };
+  var params = { name: null, slotNames: [] };
+
+  function readAddress() {
+    // #SIMU1…&n=name — the fragment never reaches a server.
+    var raw = location.hash.replace(/^#/, "") || location.search.replace(/^\?/, "");
+    var parts = raw.split("&"), code = "";
+    params = { name: null, slotNames: [] };
+    parts.forEach(function (part) {
+      var pair = part.split("=");
+      var key = pair[0], value = pair.length > 1 ? decodeURIComponent(pair.slice(1).join("=").replace(/\+/g, " ")) : null;
+      if (value === null) code += decodeURIComponent(key);
+      else if (key === "n") params.name = value;
+      else if (key === "r") params.slotNames.push(value);
+      else if (key === "c") code += value;
+    });
+    return code;
+  }
+
+  function table(fields) {
+    var t = document.createElement("table");
+    fields.forEach(function (f) {
+      var row = t.insertRow();
+      row.insertCell().textContent = label(f.key);
+      row.insertCell().textContent = show(f.key, f.value);
+    });
+    return t;
+  }
+
+  function simuLink(result) {
+    var q = [];
+    if (params.name) q.push("n=" + encodeURIComponent(params.name));
+    if (result.kind === "kit") params.slotNames.forEach(function (n) { q.push("r=" + encodeURIComponent(n)); });
+    return "simu://" + (result.kind === "kit" ? "k" : "r") + "/" + result.code + (q.length ? "?" + q.join("&") : "");
+  }
+
+  function render(text) {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("nav.langs button").forEach(function (b) {
+      b.setAttribute("aria-current", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+    $("copy").textContent = t("copy");
+    $("open").textContent = t("open");
+    $("store").textContent = t("store");
+    $("entry-title").textContent = t("entry");
+    $("entry-note").textContent = t("note");
+    $("local").textContent = t("local");
+    $("format-link").textContent = t("format");
+    $("support-link").textContent = t("support");
+
+    var result = text.trim() ? decode(text) : null;
+    var empty = result && result.kind === "recipe" && result.fields.length === 0;
+    var ok = result && !result.error && !empty;
+
+    $("result").hidden = !ok;
+    $("entry").hidden = ok;
+    $("error").hidden = !result || ok;
+    if (result && !ok) $("error").textContent = t(empty ? "empty" : result.error);
+    if (!ok) { document.title = "Simu — " + t("entry"); return; }
+
+    var settings = $("settings");
+    settings.textContent = "";
+    $("code").textContent = result.code;
+    $("open").href = simuLink(result);
+
+    if (result.kind === "recipe") {
+      var film = result.fields.filter(function (f) { return f.key === "filmSimulation"; })[0];
+      $("title").textContent = params.name || (film ? show(film.key, film.value) : t("recipe"));
+      $("subtitle").textContent = t("recipe");
+      settings.appendChild(table(result.fields));
+    } else {
+      $("title").textContent = params.name || t("kit");
+      $("subtitle").textContent = t("kit") + " · " + t("slots").replace("%d", result.slots.length);
+      result.slots.sort(function (a, b) { return a.slot - b.slot; }).forEach(function (s, i) {
+        var h = document.createElement("h2");
+        h.textContent = "C" + s.slot + (params.slotNames[i] ? " · " + params.slotNames[i] : "");
+        settings.appendChild(h);
+        settings.appendChild(table(s.fields));
+      });
+    }
+    document.title = $("title").textContent + " — Simu";
+  }
+
+  var current = readAddress();
+
+  // The name out of `秋影流光 · Classic Chrome · DR200`, being the line
+  // above the code with the settings summary trimmed off it.
+  function headline(text) {
+    var lines = text.split(/\r?\n/), at = -1;
+    for (var i = 0; i < lines.length; i++) if (firstCode(lines[i])) { at = i; break; }
+    for (var j = at - 1; j >= 0; j--) {
+      var name = lines[j].split(" · ")[0].trim();
+      if (!lines[j].trim()) continue;
+      return name && name.length <= 40 && !/^C[1-7]\b/.test(name) ? name : null;
+    }
+    return null;
+  }
+
+  $("input").addEventListener("input", function () {
+    current = this.value;
+    var found = firstCode(current);
+    params = { name: headline(current), slotNames: [] };
+    if (found) {
+      var address = "#" + found.text.toUpperCase();
+      if (params.name) address += "&n=" + encodeURIComponent(params.name);
+      history.replaceState(null, "", address);
+    }
+    render(current);
+  });
+
+  $("copy").addEventListener("click", function () {
+    var button = this;
+    navigator.clipboard.writeText($("code").textContent).then(function () {
+      button.textContent = t("copied");
+      setTimeout(function () { button.textContent = t("copy"); }, 1500);
+    });
+  });
+
+  document.querySelectorAll("nav.langs button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      lang = b.getAttribute("data-lang");
+      try { localStorage.setItem("simu-lang", lang); } catch (e) {}
+      render(current);
+    });
+  });
+
+  window.addEventListener("hashchange", function () { current = readAddress(); render(current); });
+
+  render(current);
+  window.SimuCode = { decode: decode };
+})();
+</script>
+</body>
+</html>
