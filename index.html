@@ -44,34 +44,34 @@
   <li><a href="#kits">Kits, and filling all seven slots at once</a></li>
   <li><a href="#backups">Backups</a></li>
   <li><a href="#sharing">Sharing a recipe</a></li>
-  <li><a href="#library">Finding things again</a></li>
+  <li><a href="#library">Search</a></li>
   <li><a href="#cameras">Cameras</a> · <a href="#money">What costs money</a> · <a href="#privacy">Privacy</a> · <a href="#contact">Contact</a></li>
 </ul>
 
 <h2 id="start">Setting up the camera</h2>
-<p>Two settings, both in the camera's own menus, and both have to be right before the cable does anything:</p>
+<p>Two settings in the camera's own menus, set before connecting the cable:</p>
 <ul>
   <li><code>CONNECTION MODE</code> → <code>USB RAW CONV./BACKUP RESTORE</code></li>
   <li><code>USB POWER SUPPLY/COMM SETTING</code> → <code>POWER SUPPLY OFF/COMM ON</code></li>
 </ul>
-<p>The cable has to carry data. Charge-only USB-C cables are common and look identical.</p>
+<p>The cable has to carry data.</p>
 <p class="note">Nothing above is needed to read, edit or organise recipes. Only writing uses the cable.</p>
 
 <h2 id="adding">Getting a recipe into Simu</h2>
-<p>Three ways in, and they can be mixed freely in one import of up to twenty images.</p>
+<p>Screenshots, camera originals and codes can be mixed in one import of up to twenty images.</p>
 <p>Images come from the photo picker, from the Share button in Photos or another app, by being dragged onto Simu, or from a Shortcut.</p>
 
 <h3>From a screenshot</h3>
-<p>Recipes circulate as pictures of text: a post, a card, a page of a review. Simu reads the settings off the image and builds a recipe from them. English, Japanese, Traditional and Simplified Chinese are all read, including the wording photographers use rather than the wording in Fujifilm's menus.</p>
+<p>Simu reads the settings off a screenshot of a post, a card or a web page and builds a recipe from them. English, Japanese, Traditional and Simplified Chinese are read, including the wording photographers use in posts as well as the wording in Fujifilm's menus.</p>
 <p>A setting Simu was unsure of is marked instead of silently accepted, and a line that looked like a setting no version of Simu knows is listed at the end of the import. Several screenshots of one recipe are recognised as one recipe; several recipes in one batch stay separate.</p>
 
 <h3>From a photograph taken on the camera</h3>
-<p>A frame straight out of a Fujifilm body carries every one of its settings inside the file. Simu reads those directly, so there is nothing to recognise and nothing to be unsure about, and the recipe that comes back is the one the camera used.</p>
+<p>A frame straight out of a Fujifilm body records its settings inside the file, and Simu reads them from there. The recipe that comes back is the one the camera used.</p>
 <p>This only works on the original file. A photograph exported for a website, or saved off a social post, has been re-encoded and lost the settings on the way. Those fall back to being read as a picture.</p>
 <p class="note">Two settings cannot be recovered this way, because the camera does not record them: Smooth Skin Effect, and D Range Priority on bodies that leave it out. Both are written as the camera's neutral value, and the recipe says so.</p>
 
 <h3>From a code</h3>
-<p>A recipe sent by another Simu user arrives as a short code, a link or a QR. Paste the whole message if that is easier; Simu finds the code inside it.</p>
+<p>A recipe sent by another Simu user arrives as a short code, a link or a QR. The whole message can be pasted as it is; Simu finds the code inside it.</p>
 <p>A screenshot with a Simu QR or code in it, such as a framed photo someone posted, is imported like any other screenshot. The code is read instead of the text, so the recipe comes back exactly. See <a href="#sharing">Sharing a recipe</a>.</p>
 
 <h2 id="writing">Writing a recipe to the camera</h2>
@@ -80,30 +80,30 @@
   <li>Open the recipe and pick one of <code>C1</code>–<code>C7</code>.</li>
 </ol>
 <p>What was already in that slot is copied first, so a write can be put back from inside the app. Every value is then read back off the camera and compared with what was asked for, and anything that did not take is named instead of counted as a success.</p>
-<p>Settings the recipe never mentioned are written as the camera's neutral values, and the recipe says how many of those there were. A recipe that never named Shadow is not a recipe asking for Shadow&nbsp;0, so the difference is shown.</p>
+<p>Settings the recipe never mentioned are written as the camera's neutral values, and the recipe says how many of those there were.</p>
 <p class="note">Values outside what a body accepts are snapped to the nearest setting it does accept, and the recipe is updated to show what will actually be written.</p>
 
 <h2 id="kits">Kits, and filling all seven slots at once</h2>
-<p>A kit is a loadout: which recipe sits in which of the seven custom slots. Writing a kit fills every slot it names in one pass down the cable.</p>
-<p>Slots a kit leaves out are absent rather than empty. Whatever is already in them stays where it is.</p>
+<p>A kit sets which recipe goes into which of C1–C7. Writing a kit fills every slot it names in one pass down the cable.</p>
+<p>Slots a kit leaves out keep what is already in them.</p>
 
 <h2 id="backups">Backups</h2>
 <p>The contents of the camera's seven slots can be captured at any time, and are captured automatically before a kit is written and before a backup is restored. Each one is named with the time it was taken and how many slots it held.</p>
 <p>A backup restores the same way a kit is written, taking a copy of the current slots first.</p>
 
 <h2 id="sharing">Sharing a recipe</h2>
-<p>A recipe travels as a short code, <code>SIMU1…</code>, carrying every setting and needing no server, account or network. The code is the recipe.</p>
+<p>A recipe is shared as a short code, <code>SIMU1…</code>, that carries every setting, with no server, account or network involved.</p>
 <ul>
-  <li><strong>In a message.</strong> The code goes out under a line naming the recipe, so it is worth something to someone who has not got Simu.</li>
+  <li><strong>In a message.</strong> The code goes out under a line naming the recipe, which is readable without Simu.</li>
   <li><strong>As a QR.</strong> Held up across a table and scanned with the Camera app.</li>
   <li><strong>As a whole kit.</strong> Seven slots in one code, gaps preserved.</li>
   <li><strong>Under a photograph.</strong> <em>Frame a photo</em> squares a camera original on white, with its code and a QR in the margin.</li>
 </ul>
 <p>A code can also be read without the app, on the <a href="r.html">recipe page</a>. The QR on a framed photo opens it. The code is read in the browser and is never sent anywhere.</p>
-<p>Codes are checksummed. One that arrives truncated by a messaging app is refused rather than decoded into a plausible recipe nobody wrote. The alphabet leaves out <code>I</code>, <code>L</code>, <code>O</code> and <code>U</code> so a code can be copied off a photograph by hand.</p>
+<p>Codes are checksummed. One that arrives truncated by a messaging app is refused. The alphabet leaves out <code>I</code>, <code>L</code>, <code>O</code> and <code>U</code> so a code can be copied off a photograph by hand.</p>
 <p>The format is <a href="format.html">documented in full</a>, so anyone can write a Simu code from their own site or script without asking.</p>
 
-<h2 id="library">Finding things again</h2>
+<h2 id="library">Search</h2>
 <p>Search reads names and settings, so <code>Classic Neg</code> finds every recipe using it. Recipes can be narrowed to one film simulation, and sorted by when they were added, by name, or by film simulation.</p>
 <p>Every setting in a recipe can be edited by hand, including ones the recipe never named. <em>What the settings mean</em> explains each one and the range the camera accepts.</p>
 
@@ -111,8 +111,8 @@
 
 <h2 id="cameras">Cameras</h2>
 <p>Writing is verified on hardware on the X100VI.</p>
-<p>These fifteen bodies are supported, the rest from the camera's own firmware tables instead of from testing, and Simu says so before it writes: X100VI, X100V, X-T5, X-T50, X-T4, X-T3, X-T30, X-T30 II, X-E5, X-E4, X-M5, X-H2, X-H2S, X-S20, X-S10.</p>
-<p class="note">Reports from a body other than the X100VI are welcome either way — the ones that work are as useful to hear about as the ones that do not.</p>
+<p>Fourteen more bodies are supported from the camera's own firmware tables, untested, and Simu says so before it writes: X100V, X-T5, X-T50, X-T4, X-T3, X-T30, X-T30 II, X-E5, X-E4, X-M5, X-H2, X-H2S, X-S20, X-S10.</p>
+<p class="note">Reports from any of those fourteen are welcome, whether writing worked or not.</p>
 
 <h2 id="money">What costs money</h2>
 <p>Reading screenshots and photographs, organising recipes into kits, sharing them, and the settings reference are free. Writing to the camera is a one-time purchase, restorable on any device signed into the same Apple ID.</p>
@@ -124,8 +124,8 @@
 <p>Nothing is collected and nothing is transmitted. Recipes, photographs and backups stay on the device. The full statement is on the <a href="privacy.html">privacy page</a>.</p>
 
 <h2 id="contact">Contact</h2>
-<p>Email <a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a>. One person answers it, usually within a couple of days.</p>
-<p class="note">A screenshot Simu read badly is the single most useful thing to send. The recipes people post are written in wording no dictionary covers completely, and every screenshot that arrives becomes a test case.</p>
+<p>Email <a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a>. Replies usually take a couple of days.</p>
+<p class="note">Screenshots Simu read badly are the most useful thing to send; each one becomes a test case.</p>
 
 <hr>
 
