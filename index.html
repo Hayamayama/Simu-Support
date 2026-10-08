@@ -3,137 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simu — Support</title>
-<style>
-  :root { color-scheme: light dark; --ink: #17181a; --dim: #6b6f76; --bg: #fbfaf8; --line: #e3e0da; --accent: #c4601a; --panel: #f3f1ec; }
-  @media (prefers-color-scheme: dark) {
-    :root { --ink: #ecebe8; --dim: #9a9ea6; --bg: #131416; --line: #2c2e33; --accent: #e8913f; --panel: #1b1d20; }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; }
-  main { max-width: 38rem; margin: 0 auto; padding: 3.5rem 1.4rem 5rem; }
-  h1 { font-size: 1.6rem; margin: 0 0 .2rem; letter-spacing: -.01em; }
-  .tagline { color: var(--dim); margin: 0 0 2.2rem; }
-  h2 { font-size: 1.02rem; margin: 2.4rem 0 .6rem; }
-  h3 { font-size: .94rem; margin: 1.5rem 0 .3rem; }
-  p, li { color: var(--ink); }
-  ul, ol { padding-left: 1.15rem; }
-  li { margin: .35rem 0; }
-  code { background: color-mix(in srgb, var(--ink) 8%, transparent); padding: .1rem .35rem;
-         border-radius: 4px; font-size: .88em; }
-  a { color: var(--accent); }
-  hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
-  footer { color: var(--dim); font-size: .85rem; }
-  .note { color: var(--dim); font-size: .92rem; }
-  .contents { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
-              padding: .9rem 1rem .9rem 2rem; margin: 0 0 2.4rem; }
-  .contents li { margin: .2rem 0; }
-</style>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://simu.bykrisyeh.com/">
+<title>Simu</title>
+<script>
+  // The site moved to simu.bykrisyeh.com in October 2026. A recipe code rides in
+  // the fragment (and in older links the query), which never reaches a server, so
+  // only a script here can carry it across; printed QR codes depend on this page.
+  location.replace("https://simu.bykrisyeh.com/" + location.search + location.hash);
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://simu.bykrisyeh.com/"></noscript>
 </head>
 <body>
-<main>
-
-<h1>Simu</h1>
-<p class="tagline">Film recipes, read from a screenshot and written into the camera.</p>
-
-<ul class="contents">
-  <li><a href="#start">Setting up the camera</a></li>
-  <li><a href="#adding">Getting a recipe into Simu</a></li>
-  <li><a href="#writing">Writing a recipe to the camera</a></li>
-  <li><a href="#kits">Kits, and filling all seven slots at once</a></li>
-  <li><a href="#backups">Backups</a></li>
-  <li><a href="#sharing">Sharing a recipe</a></li>
-  <li><a href="#library">Search</a></li>
-  <li><a href="#cameras">Cameras</a> · <a href="#money">What costs money</a> · <a href="#privacy">Privacy</a> · <a href="#contact">Contact</a></li>
-</ul>
-
-<h2 id="start">Setting up the camera</h2>
-<p>Two settings in the camera's own menus, set before connecting the cable:</p>
-<ul>
-  <li><code>CONNECTION MODE</code> → <code>USB RAW CONV./BACKUP RESTORE</code></li>
-  <li><code>USB POWER SUPPLY/COMM SETTING</code> → <code>POWER SUPPLY OFF/COMM ON</code></li>
-</ul>
-<p>The cable has to carry data.</p>
-<p class="note">Nothing above is needed to read, edit or organise recipes. Only writing uses the cable.</p>
-
-<h2 id="adding">Getting a recipe into Simu</h2>
-<p>Screenshots, camera originals and codes can be mixed in one import of up to twenty images.</p>
-<p>Images come from the photo picker, from the Share button in Photos or another app, by being dragged onto Simu, or from a Shortcut.</p>
-
-<h3>From a screenshot</h3>
-<p>Simu reads the settings off a screenshot of a post, a card or a web page and builds a recipe from them. English, Japanese, Traditional and Simplified Chinese are read, including the wording photographers use in posts as well as the wording in Fujifilm's menus.</p>
-<p>A setting Simu was unsure of is marked instead of silently accepted, and a line that looked like a setting no version of Simu knows is listed at the end of the import. Several screenshots of one recipe are recognised as one recipe; several recipes in one batch stay separate.</p>
-
-<h3>From a photograph taken on the camera</h3>
-<p>A frame straight out of a Fujifilm body records its settings inside the file, and Simu reads them from there. The recipe that comes back is the one the camera used.</p>
-<p>This only works on the original file. A photograph exported for a website, or saved off a social post, has been re-encoded and lost the settings on the way. Those fall back to being read as a picture.</p>
-<p class="note">Two settings cannot be recovered this way, because the camera does not record them: Smooth Skin Effect, and D Range Priority on bodies that leave it out. Both are written as the camera's neutral value, and the recipe says so.</p>
-
-<h3>From a code</h3>
-<p>A recipe sent by another Simu user arrives as a short code, a link or a QR. The whole message can be pasted as it is; Simu finds the code inside it.</p>
-<p>A screenshot with a Simu QR or code in it, such as a framed photo someone posted, is imported like any other screenshot. The code is read instead of the text, so the recipe comes back exactly. See <a href="#sharing">Sharing a recipe</a>.</p>
-
-<h2 id="writing">Writing a recipe to the camera</h2>
-<ol>
-  <li>Set the two camera menu items above and connect the cable.</li>
-  <li>Open the recipe and pick one of <code>C1</code>–<code>C7</code>.</li>
-</ol>
-<p>What was already in that slot is copied first, so a write can be put back from inside the app. Every value is then read back off the camera and compared with what was asked for, and anything that did not take is named instead of counted as a success.</p>
-<p>Settings the recipe never mentioned are written as the camera's neutral values, and the recipe says how many of those there were.</p>
-<p class="note">Values outside what a body accepts are snapped to the nearest setting it does accept, and the recipe is updated to show what will actually be written.</p>
-
-<h2 id="kits">Kits, and filling all seven slots at once</h2>
-<p>A kit sets which recipe goes into which of C1–C7. Writing a kit fills every slot it names in one pass down the cable.</p>
-<p>Slots a kit leaves out keep what is already in them.</p>
-
-<h2 id="backups">Backups</h2>
-<p>The contents of the camera's seven slots can be captured at any time, and are captured automatically before a kit is written and before a backup is restored. Each one is named with the time it was taken and how many slots it held.</p>
-<p>A backup restores the same way a kit is written, taking a copy of the current slots first.</p>
-
-<h2 id="sharing">Sharing a recipe</h2>
-<p>A recipe is shared as a short code, <code>SIMU1…</code>, that carries every setting, with no server, account or network involved.</p>
-<ul>
-  <li><strong>In a message.</strong> The code goes out under a line naming the recipe, which is readable without Simu.</li>
-  <li><strong>As a QR.</strong> Held up across a table and scanned with the Camera app.</li>
-  <li><strong>As a whole kit.</strong> Seven slots in one code, gaps preserved.</li>
-  <li><strong>Under a photograph.</strong> <em>Frame a photo</em> squares a camera original on white, with its code and a QR in the margin.</li>
-</ul>
-<p>A code can also be read without the app, on the <a href="r.html">recipe page</a>. The QR on a framed photo opens it. The code is read in the browser and is never sent anywhere.</p>
-<p>Codes are checksummed. One that arrives truncated by a messaging app is refused. The alphabet leaves out <code>I</code>, <code>L</code>, <code>O</code> and <code>U</code> so a code can be copied off a photograph by hand.</p>
-<p>The format is <a href="format.html">documented in full</a>, so anyone can write a Simu code from their own site or script without asking.</p>
-
-<h2 id="library">Search</h2>
-<p>Search reads names and settings, so <code>Classic Neg</code> finds every recipe using it. Recipes can be narrowed to one film simulation, and sorted by when they were added, by name, or by film simulation.</p>
-<p>Every setting in a recipe can be edited by hand, including ones the recipe never named. <em>What the settings mean</em> explains each one and the range the camera accepts.</p>
-
-<hr>
-
-<h2 id="cameras">Cameras</h2>
-<p>Writing is verified on hardware on the X100VI.</p>
-<p>Twelve more bodies use the same USB protocol and are supported, untested: X100V, X-T5, X-T50, X-T4, X-T30 II, X-E5, X-E4, X-M5, X-H2, X-H2S, X-S20, X-S10.</p>
-<p>Other Fujifilm bodies, the X-T3 and X-T30 among them, connect for reading. They do not expose C1–C7 over USB, and writing is off.</p>
-<p class="note">Reports from any of those twelve are welcome, whether writing worked or not.</p>
-
-<h2 id="money">What costs money</h2>
-<p>Reading screenshots and photographs, organising recipes into kits, sharing them, and the settings reference are free. Writing to the camera is a one-time purchase, restorable on any device signed into the same Apple ID.</p>
-
-<h3>Restoring a purchase</h3>
-<p>Tap a write control, then <em>Restore Purchase</em> on the screen that appears. The purchase belongs to the Apple ID it was made with; a different Apple ID is a different purchase.</p>
-
-<h2 id="privacy">Privacy</h2>
-<p>Nothing is collected and nothing is transmitted. Recipes, photographs and backups stay on the device. The full statement is on the <a href="privacy.html">privacy page</a>.</p>
-
-<h2 id="contact">Contact</h2>
-<p>Email <a href="mailto:developer@bykrisyeh.com">developer@bykrisyeh.com</a>. Replies usually take a couple of days.</p>
-<p class="note">Screenshots Simu read badly are the most useful thing to send; each one becomes a test case.</p>
-
-<hr>
-
-<footer>
-<p>FUJIFILM, X100VI and the film simulation names are trademarks of FUJIFILM Corporation. Simu is an independent app and is not affiliated with, authorised, or endorsed by FUJIFILM Corporation.</p>
-</footer>
-
-</main>
+<p><a href="https://simu.bykrisyeh.com/">simu.bykrisyeh.com/</a></p>
 </body>
 </html>
